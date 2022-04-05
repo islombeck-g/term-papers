@@ -1,0 +1,3 @@
+C:/Users/islom/Desktop/4 семестр/алгоритмы и анализ сложности/сравнение(алгоритмы и анализ сложности)/cmake-build-debug/CMakeFiles/_____.dir
+C:/Users/islom/Desktop/4 семестр/алгоритмы и анализ сложности/сравнение(алгоритмы и анализ сложности)/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/islom/Desktop/4 семестр/алгоритмы и анализ сложности/сравнение(алгоритмы и анализ сложности)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
