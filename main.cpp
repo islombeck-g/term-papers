@@ -32,8 +32,9 @@ public:
         time.insert(std::make_pair(bubble_sort(arr_not_sorted), "bubble_sort"));
         time.insert(std::make_pair(insert_sort(arr_not_sorted), "insert_sort"));
         time.insert(std::make_pair(selection_sort(arr_not_sorted), "selection_sort"));
+        time.insert(std::make_pair(shell_sort(arr_not_sorted), "shell_sort"));
         time.insert(std::make_pair(sort_standard(arr_not_sorted), "sort_standard"));
-
+        time.insert(std::make_pair(heap_sort(arr_not_sorted), "heap_sort"));
         for (const auto cur: time) {
             std::cout << cur.first << ' ' << cur.second << '\n';
         }
@@ -89,6 +90,35 @@ private:
         sort(arr.begin(), arr.end());
         return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
     }
+    double shell_sort(std::vector<T> arr){
+        const clock_t start = clock();
+        int t= arr.size()/2;
+        bool sorted=false;
+        while(!sorted)
+        {
+            sorted=true;
+            for(size_t i=0; i<arr.size(); i++)
+                if (i + t < arr.size()) {
+                    if (arr[i] > arr[i + t]) {
+                        std::swap(arr[i], arr[i + t]);
+                        sorted = false;
+                    } else if (t != 1) {
+                        t--;
+                        sorted = false;
+                    }
+                }
+        }
+        return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
+    }
+    double heap_sort(std::vector<T> arr) {
+        const clock_t start = clock();
+        std::make_heap(arr.begin(), arr.end());
+        for (auto i = arr.end(); i != arr.begin(); --i) {
+            std::pop_heap(arr.begin(), i);
+        }
+        return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
+    }
+
 };
 
 
