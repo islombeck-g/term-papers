@@ -27,17 +27,26 @@ public:
 
     void all_algorithms() {
         std::map<double, std::string> time;
-        //auto bubble_sort_dur{ bubble_sort(array_not_sorted) };
 
-        time.insert(std::make_pair(bubble_sort(arr_not_sorted), "bubble_sort"));
-        time.insert(std::make_pair(insert_sort(arr_not_sorted), "insert_sort"));
-        time.insert(std::make_pair(selection_sort(arr_not_sorted), "selection_sort"));
-        time.insert(std::make_pair(shell_sort(arr_not_sorted), "shell_sort"));
         time.insert(std::make_pair(sort_standard(arr_not_sorted), "sort_standard"));
+        std::cout<<"sort_standard_done\n";
         time.insert(std::make_pair(heap_sort(arr_not_sorted), "heap_sort"));
+        std::cout<<"heap_sort_done\n";
+        time.insert(std::make_pair(insert_sort(arr_not_sorted), "insert_sort"));
+        std::cout<<"insert_sort_done\n";
+        time.insert(std::make_pair(selection_sort(arr_not_sorted), "selection_sort"));
+        std::cout<<"selection_sort_done\n";
+        time.insert(std::make_pair(shell_sort(arr_not_sorted), "shell_sort"));
+        std::cout<<"shell_sort_done\n";
+         time.insert(std::make_pair(bubble_sort(arr_not_sorted), "bubble_sort"));
+        std::cout<<"bubble_sort_done\n";
+        std::ofstream file;
+        file.open("file.txt");
         for (const auto cur: time) {
+            file<<cur.first << ' ' << cur.second << '\n';
             std::cout << cur.first << ' ' << cur.second << '\n';
         }
+        file.close();
     }
 
 private:
@@ -124,6 +133,6 @@ private:
 
 int main()
 {
-    Tests<int> g("5000.10.100.txt");
+    Tests<int> g("1000000.10.100.txt");
     g.all_algorithms();
 };
