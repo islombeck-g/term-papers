@@ -27,19 +27,13 @@ public:
 
     void all_algorithms() {
         std::map<double, std::string> time;
-
+        time.insert(std::make_pair(bubble_sort(arr_not_sorted), "bubble_sort"));
         time.insert(std::make_pair(sort_standard(arr_not_sorted), "sort_standard"));
-        std::cout<<"sort_standard_done\n";
         time.insert(std::make_pair(heap_sort(arr_not_sorted), "heap_sort"));
-        std::cout<<"heap_sort_done\n";
         time.insert(std::make_pair(insert_sort(arr_not_sorted), "insert_sort"));
-        std::cout<<"insert_sort_done\n";
         time.insert(std::make_pair(selection_sort(arr_not_sorted), "selection_sort"));
-        std::cout<<"selection_sort_done\n";
         time.insert(std::make_pair(shell_sort(arr_not_sorted), "shell_sort"));
-        std::cout<<"shell_sort_done\n";
-         time.insert(std::make_pair(bubble_sort(arr_not_sorted), "bubble_sort"));
-        std::cout<<"bubble_sort_done\n";
+
         std::ofstream file;
         file.open("file.txt");
         for (const auto cur: time) {
@@ -62,7 +56,8 @@ private:
                     std::swap(arr[i], arr[i + 1]);
                 }
         }
-        return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
+        std::cout<<"bubble_sort_done\n";
+        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
     }
     double insert_sort(std::vector<T> arr) {
         const clock_t start = clock();
@@ -74,6 +69,7 @@ private:
                 else
                     sorted = true;
         }
+        std::cout<<"insert_sort_done\n";
         return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
     }
     double selection_sort(std::vector<T> arr) {
@@ -92,11 +88,13 @@ private:
                 std::swap(arr[min], arr[i]);
             }
         }
+        std::cout<<"selection_sort_done\n";
         return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
     }
     double sort_standard(std::vector<T> arr) {
         const clock_t start = clock();
         sort(arr.begin(), arr.end());
+        std::cout<<"sort_standard_done\n";
         return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
     }
     double shell_sort(std::vector<T> arr){
@@ -117,6 +115,7 @@ private:
                     }
                 }
         }
+        std::cout<<"shell_sort_done\n";
         return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
     }
     double heap_sort(std::vector<T> arr) {
@@ -125,14 +124,14 @@ private:
         for (auto i = arr.end(); i != arr.begin(); --i) {
             std::pop_heap(arr.begin(), i);
         }
+        std::cout<<"heap_sort_done\n";
         return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
     }
-
 };
 
 
 int main()
 {
-    Tests<int> g("1000000.10.100.txt");
+    Tests<int> g("100.10.1000.txt");
     g.all_algorithms();
 };
