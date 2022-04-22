@@ -5,11 +5,13 @@
 #include <fstream>
 #include <utility>
 #include <iomanip>
-const std::string line="1000.0.9.txt";
+#include <chrono>
+
 
 template<typename T>
 class Tests{
 public:
+
     Tests(std::string s) {
         std::fstream file;
         file.open(s);
@@ -20,11 +22,13 @@ public:
             for (size_t i = 0; i < kol_elem; i++) {
                 file >> arr_not_sorted[i];
             }
-        } else {
+        }
+        else {
             std::cerr << "error of open file\n";
             return;
         }
         file.close();
+        line_plus_time="time_" + s;
     }
 
     void all_algorithms() {
@@ -32,15 +36,13 @@ public:
         time.insert(std::make_pair(sort_standard(arr_not_sorted), "sort_standard"));
         time.insert(std::make_pair(selection_sort(arr_not_sorted), "selection_sort"));
         time.insert(std::make_pair(shell_sort(arr_not_sorted), "shell_sort"));
-
         time.insert(std::make_pair(heap_sort(arr_not_sorted), "heap_sort"));
         time.insert(std::make_pair(insert_sort(arr_not_sorted), "insert_sort"));
         time.insert(std::make_pair(bubble_sort(arr_not_sorted), "bubble_sort"));
 
-
         std::ofstream file;
         std::cout << time.size() << '\n';
-        std::string line_plus_time="time_"+line;
+
         file.open(line_plus_time);
         for (const auto cur: time) {
             file<<std::fixed<<std::setprecision(40)<<cur.first << ' ' << cur.second << '\n';
@@ -51,8 +53,10 @@ public:
 
 private:
     std::vector<T> arr_not_sorted;
+    std::string line_plus_time;
+    using time_=std::chrono::microseconds;
     double bubble_sort(std::vector<T> arr) {
-        const clock_t start = clock();
+        auto begin =std::chrono::steady_clock::now();
         bool is_sorted = false;
         while (!is_sorted) {
             is_sorted = true;
@@ -62,10 +66,12 @@ private:
                     std::swap(arr[i], arr[i + 1]);
                 }
         }
-        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
+        auto end = std::chrono::steady_clock::now();
+        return duration_cast<time_>(end - begin).count();
+
     }
     double insert_sort(std::vector<T> arr) {
-        const clock_t start = clock();
+        auto begin =std::chrono::steady_clock::now();
         for (int i = 1; i < arr.size(); i++) {
             bool sorted = false;
             for (int j = i; (j > 0) && (!sorted); j--)
@@ -74,10 +80,11 @@ private:
                 else
                     sorted = true;
         }
-        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
+        auto end = std::chrono::steady_clock::now();
+        return duration_cast<time_>(end - begin).count();
     }
     double selection_sort(std::vector<T> arr) {
-        const clock_t start = clock();
+        auto begin =std::chrono::steady_clock::now();
         for (int i = 0; i < arr.size(); i++) {
             int j = i;
             int min = j;
@@ -92,15 +99,17 @@ private:
                 std::swap(arr[min], arr[i]);
             }
         }
-        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
+        auto end = std::chrono::steady_clock::now();
+        return duration_cast<time_>(end - begin).count();
     }
     double sort_standard(std::vector<T> arr) {
-        const clock_t start = clock();
+        auto begin =std::chrono::steady_clock::now();
         sort(arr.begin(), arr.end());
-        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
+        auto end = std::chrono::steady_clock::now();
+        return duration_cast<time_>(end - begin).count();
     }
     double shell_sort(std::vector<T> arr){
-        const clock_t start = clock();
+        auto begin =std::chrono::steady_clock::now();
         int t= arr.size()/2;
         bool sorted=false;
         while(!sorted)
@@ -117,16 +126,17 @@ private:
                     }
                 }
         }
-        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
+        auto end = std::chrono::steady_clock::now();
+        return duration_cast<time_>(end - begin).count();
     }
     double heap_sort(std::vector<T> arr) {
-        const clock_t start = clock();
+        auto begin =std::chrono::steady_clock::now();
         std::make_heap(arr.begin(), arr.end());
         for (auto i = arr.end(); i != arr.begin(); --i) {
             std::pop_heap(arr.begin(), i);
         }
-        std::cout<<"heap_sort_done\n";
-        return (static_cast<double>(clock() - start) / CLOCKS_PER_SEC);
+        auto end = std::chrono::steady_clock::now();
+        return duration_cast<time_>(end - begin).count();
     }
     bool check(std::vector<T>arr){
         for(size_t i=0; i+1<arr.size(); i++){
@@ -142,6 +152,9 @@ private:
 int main()
 {
 
+    std::string line="1000.1000.10000.txt";
+
     Tests<int> g(line);
+
     g.all_algorithms();
 };
