@@ -151,28 +151,7 @@ private:
 
 int main()
 {
-
-
     std::string line="1000.1000.10000.txt";
-    std::string line1="10000.1000.10000.txt";
-    std::string line2="100000.1000.10000.txt";
-
     Tests<int> g(line);
-    Tests<int> g1(line1);
-    Tests<int> g2(line2);
     g.all_algorithms();
-    g1.all_algorithms();
-    g2.all_algorithms();
-
-    std::string line01="1000.1000.1.9999.9.txt";
-    std::string line11="10000.1000.1.9999.9.txt";
-    std::string line21="100000.1000.1.9999.9.txt";
-
-    Tests<double> g01(line01);
-    Tests<double> g11(line11);
-    Tests<double> g21(line21);
-    g01.all_algorithms();
-    g11.all_algorithms();
-    g21.all_algorithms();
-
 };
